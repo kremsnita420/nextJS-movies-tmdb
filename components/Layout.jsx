@@ -19,6 +19,16 @@ export default function Layout({ title, description, children }) {
 			},
 		},
 
+		breakpoints: {
+			values: {
+				xs: 0,
+				sm: 600,
+				md: 900,
+				lg: 1200,
+				xl: 2000,
+			},
+		},
+
 		typography: {
 			h1: {
 				fontSize: '3rem',

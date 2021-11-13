@@ -33,7 +33,7 @@ export default function Index(movies) {
 
 					<Grid container spacing={2}>
 						{movies.movies.map((movie) => (
-							<Grid item xs={12} md={6} lg={4} key={movie.id}>
+							<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={movie.id}>
 								<NextLink href={`/movie/${movie.id}`} passHref>
 									<a className='link'>
 										<Card fullwidth='true'>
@@ -49,7 +49,7 @@ export default function Index(movies) {
 														{movie.title}
 													</Typography>
 													<Typography variant='body2' color='text.secondary'>
-														{movie.overview.slice(0, 125)}...
+														{movie.overview.slice(0, 50)}...
 													</Typography>
 												</CardContent>
 											</CardActionArea>

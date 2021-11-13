@@ -43,7 +43,7 @@ export default function MoviePage(movie) {
 
 			<Grid container spacing={2}>
 				{movie.cast.map((actor) => (
-					<Grid item xs={12} md={6} lg={4} key={actor.id}>
+					<Grid item xs={12} sm={6} md={4} lg={3} key={actor.id}>
 						<NextLink href={`/actor/${actor.id}`}>
 							<Card>
 								<CardActionArea>
@@ -57,7 +57,7 @@ export default function MoviePage(movie) {
 									) : (
 										<CardMedia
 											component='img'
-											height='250'
+											height='350'
 											image='/images/noimage.jpg'
 											alt={actor.character}
 										/>
@@ -92,7 +92,7 @@ export async function getServerSideProps(context) {
 
 	//fetch cast
 	const castResponse = await fetch(
-		`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=6f1ded32feffe837e07e801efb60a6c6&language=en-US`
+		`https://api.themoviedb.org/3/movie/${movieId}/credits?api_key=6f1ded32feffe837e07e801efb60a6c6&language=en-US&append_to_response=videos,people`
 	)
 
 	const castData = await castResponse.json()
