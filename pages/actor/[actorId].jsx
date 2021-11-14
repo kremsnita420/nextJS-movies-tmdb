@@ -1,38 +1,94 @@
 import NextLink from 'next/link'
-import { Link, Typography } from '@mui/material'
+import Image from 'next/image'
+import { Chip, Divider, Grid, Link, Typography } from '@mui/material'
 import Layout from '../../components/Layout'
 
 export default function ActorsPage(actor) {
 	const actorData = actor.actor
 	const actorCredits = actor.actor.combined_credits.cast
 
+	const BASE_URL = 'https://image.tmdb.org/t/p/original'
+	const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
+
 	console.log(actorData)
 	console.log(actorCredits)
+
+	//calculate actor age and return years
+	let currentTime = new Date().getTime()
+	let birthDateTime = new Date(actorData.birthday).getTime()
+	let difference = currentTime - birthDateTime
+	var ageInYears = Math.floor(difference / (1000 * 60 * 60 * 24 * 365))
 
 	return (
 		<Layout title={actorData.name}>
 			<Typography gutterBottom variant='h1' component='h1'>
 				{actorData.name}
 			</Typography>
+			<Grid container spacing={4}>
+				{/* left side */}
+				<Grid item md={4}>
+					<Image
+						src={`${IMAGE_BASE_URL}/${actorData.profile_path}`}
+						width={500}
+						height={700}
+					/>
+					<Divider>Info</Divider>
+					<Typography gutterBottom variant='p' component='p'>
+						Name: {actorData.name}
+					</Typography>
+					<Typography gutterBottom variant='p' component='p'>
+						Known For: {actorData.known_for_department}
+					</Typography>
+					<Typography gutterBottom variant='p' component='p'>
+						Birthday: {actorData.birthday} ({ageInYears} years old)
+					</Typography>
+					<Typography gutterBottom variant='p' component='p'>
+						Birthplace: {actorData.place_of_birth}
+					</Typography>
+					<Divider />
+				</Grid>
 
-			<ul>
-				{actorCredits.map((credit) => (
-					<NextLink
-						passHref
-						key={credit.credit_id}
-						href={
-							credit.media_type === 'movie'
-								? `/movie/${credit.id}`
-								: `/show/${credit.id}`
-						}>
-						<li>
-							<a>
-								{credit.media_type} - {credit.title || credit.name}
-							</a>
-						</li>
-					</NextLink>
-				))}
-			</ul>
+				{/* right side */}
+				<Grid item md={8}>
+					<Typography gutterBottom variant='h4' component='h4'>
+						Known For
+					</Typography>
+
+					<Grid container spacing={2}>
+						{actorCredits.map((credit) => (
+							<Grid item md={4} key={credit.credit_id}>
+								<NextLink
+									passHref
+									href={
+										credit.media_type === 'movie'
+											? `/movie/${credit.id}`
+											: `/show/${credit.id}`
+									}>
+									<Link>
+										{credit.poster_path ? (
+											<Image
+												src={`${IMAGE_BASE_URL}/${credit.poster_path}`}
+												width={300}
+												height={400}
+											/>
+										) : (
+											<Image
+												src='/images/noimage.jpg'
+												width={300}
+												height={400}
+											/>
+										)}
+
+										<Typography variant='p' component='p'>
+											{credit.title || credit.name}
+										</Typography>
+									</Link>
+								</NextLink>
+							</Grid>
+						))}
+					</Grid>
+				</Grid>
+			</Grid>
 		</Layout>
 	)
 }

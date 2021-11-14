@@ -15,23 +15,38 @@ export default function MoviePage(movie) {
 	const BASE_URL = 'https://image.tmdb.org/t/p/original'
 	const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
 
-	console.log(movie.movie)
-	console.log(movie.cast)
+	const movieData = movie.movie
+	const castList = movie.cast
+
+	console.log(movieData)
+	console.log(castList)
 	return (
-		<Layout title={movie.movie.title}>
+		<Layout title={movieData.title}>
 			<Typography
 				variant='h1'
 				component='h1'
 				sx={{ textAlign: 'center', m: '2rem' }}>
-				{movie.movie.title}
+				{movieData.title}
 			</Typography>
-			<Image
-				width={800}
-				height={450}
-				priority
-				layout='responsive'
-				src={`${BASE_URL}/${movie.movie.backdrop_path}`}
-			/>
+			{movieData.backdrop_path ? (
+				<Image
+					width={800}
+					height={450}
+					priority
+					layout='responsive'
+					src={`${BASE_URL}/${
+						movieData.backdrop_path || movieData.profile_path
+					}`}
+				/>
+			) : (
+				<Image
+					width={800}
+					height={450}
+					priority
+					layout='responsive'
+					src='/images/noimage.jpg'
+				/>
+			)}
 
 			<Typography
 				sx={{ textAlign: 'center', m: '2rem' }}
@@ -42,7 +57,7 @@ export default function MoviePage(movie) {
 			</Typography>
 
 			<Grid container spacing={2}>
-				{movie.cast.map((actor) => (
+				{castList.map((actor) => (
 					<Grid item xs={12} sm={6} md={4} lg={3} key={actor.id}>
 						<NextLink href={`/actor/${actor.id}`}>
 							<Card>
