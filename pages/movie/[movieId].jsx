@@ -28,14 +28,14 @@ export default function MoviePage(movie) {
 				sx={{ textAlign: 'center', m: '2rem' }}>
 				{movieData.title}
 			</Typography>
-			{movieData.backdrop_path ? (
+			{movieData.backdrop_path || movieData.poster_path ? (
 				<Image
 					width={800}
 					height={450}
 					priority
 					layout='responsive'
 					src={`${BASE_URL}/${
-						movieData.backdrop_path || movieData.profile_path
+						movieData.backdrop_path || movieData.poster_path
 					}`}
 				/>
 			) : (
@@ -58,31 +58,31 @@ export default function MoviePage(movie) {
 
 			<Grid container spacing={2}>
 				{castList.map((actor) => (
-					<Grid item xs={12} sm={6} md={4} lg={3} key={actor.id}>
+					<Grid item xs={6} sm={4} lg={2} key={actor.id}>
 						<NextLink href={`/actor/${actor.id}`}>
 							<Card>
 								<CardActionArea>
 									{actor.profile_path ? (
 										<CardMedia
 											component='img'
-											height='350'
+											height='300'
 											image={`${IMAGE_BASE_URL}/${actor.profile_path}`}
 											alt={actor.character}
 										/>
 									) : (
 										<CardMedia
 											component='img'
-											height='350'
+											height='300'
 											image='/images/noimage.jpg'
 											alt={actor.character}
 										/>
 									)}
 
 									<CardContent>
-										<Typography gutterBottom variant='h5' component='div'>
+										<Typography gutterBottom variant='body2' component='p'>
 											{actor.name}
 										</Typography>
-										<Typography variant='body2' color='text.secondary'>
+										<Typography variant='p' color='text.secondary'>
 											As {actor.character.split('(voice)')}
 										</Typography>
 									</CardContent>

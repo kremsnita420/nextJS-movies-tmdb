@@ -29,8 +29,8 @@ export default function ActorsPage(actor) {
 				<Grid item md={4}>
 					<Image
 						src={`${IMAGE_BASE_URL}/${actorData.profile_path}`}
-						width={500}
-						height={700}
+						width={700}
+						height={900}
 					/>
 					<Divider>Info</Divider>
 					<Typography gutterBottom variant='p' component='p'>
@@ -56,7 +56,7 @@ export default function ActorsPage(actor) {
 
 					<Grid container spacing={2}>
 						{actorCredits.map((credit) => (
-							<Grid item md={4} key={credit.credit_id}>
+							<Grid item xs={4} sm={3} md={2} key={credit.credit_id}>
 								<NextLink
 									passHref
 									href={
@@ -68,14 +68,14 @@ export default function ActorsPage(actor) {
 										{credit.poster_path ? (
 											<Image
 												src={`${IMAGE_BASE_URL}/${credit.poster_path}`}
-												width={300}
-												height={400}
+												width={400}
+												height={500}
 											/>
 										) : (
 											<Image
 												src='/images/noimage.jpg'
-												width={300}
-												height={400}
+												width={400}
+												height={500}
 											/>
 										)}
 

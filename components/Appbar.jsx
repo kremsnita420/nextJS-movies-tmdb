@@ -15,7 +15,12 @@ export default function Navbar() {
 					<Box style={{ flexGrow: '1' }} />
 
 					<NextLink href='/movies'>
-						<Button>Movies</Button>
+						<Button>
+							<a>Movies</a>
+						</Button>
+					</NextLink>
+					<NextLink href='/shows'>
+						<Button>Shows</Button>
 					</NextLink>
 				</Toolbar>
 			</Container>
