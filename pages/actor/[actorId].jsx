@@ -27,11 +27,16 @@ export default function ActorsPage(actor) {
 			<Grid container spacing={4}>
 				{/* left side */}
 				<Grid item md={4}>
-					<Image
-						src={`${IMAGE_BASE_URL}/${actorData.profile_path}`}
-						width={700}
-						height={900}
-					/>
+					{actorData.profile_path ? (
+						<Image
+							src={`${IMAGE_BASE_URL}/${actorData.profile_path}`}
+							width={700}
+							height={900}
+						/>
+					) : (
+						<Image src='/images/noimage.jpg' width={700} height={900} />
+					)}
+
 					<Divider>Info</Divider>
 					<Typography gutterBottom variant='p' component='p'>
 						Name: {actorData.name}
@@ -65,9 +70,11 @@ export default function ActorsPage(actor) {
 											: `/show/${credit.id}`
 									}>
 									<Link>
-										{credit.poster_path ? (
+										{credit.poster_path || credit.backdrop_path ? (
 											<Image
-												src={`${IMAGE_BASE_URL}/${credit.poster_path}`}
+												src={`${IMAGE_BASE_URL || BASE_URL}/${
+													credit.poster_path || credit.backdrop_path
+												}`}
 												width={400}
 												height={500}
 											/>

@@ -7,6 +7,7 @@ import {
 	CardMedia,
 	Grid,
 	Typography,
+	Link,
 } from '@mui/material'
 import Layout from '../../components/Layout'
 
@@ -27,13 +28,13 @@ export default function ShowPage(show) {
 				sx={{ textAlign: 'center', m: '2rem' }}>
 				{showData.name || showData.title}
 			</Typography>
-			{showData.backdrop_path ? (
+			{showData.poster_path || showData.backdrop_path ? (
 				<Image
 					width={800}
 					height={450}
 					priority
 					layout='responsive'
-					src={`${BASE_URL}/${showData.backdrop_path || showData.profile_path}`}
+					src={`${BASE_URL}/${showData.poster_path || showData.backdrop_path}`}
 				/>
 			) : (
 				<Image
@@ -53,38 +54,40 @@ export default function ShowPage(show) {
 				Cast Crew
 			</Typography>
 
-			<Grid container spacing={2}>
+			<Grid container spacing={2} sx={{ paddingBottom: '5rem' }}>
 				{castList.map((actor) => (
-					<Grid item xs={6} sm={4} lg={2} key={actor.id}>
-						<NextLink href={`/actor/${actor.id}`}>
-							<Card>
-								<CardActionArea>
-									{actor.profile_path ? (
-										<CardMedia
-											component='img'
-											height='350'
-											image={`${IMAGE_BASE_URL}/${actor.profile_path}`}
-											alt={actor.character}
-										/>
-									) : (
-										<CardMedia
-											component='img'
-											height='350'
-											image='/images/noimage.jpg'
-											alt={actor.character}
-										/>
-									)}
+					<Grid item xs={6} sm={4} md={3} lg={2} key={actor.id}>
+						<NextLink href={`/actor/${actor.id}`} passHref>
+							<Link>
+								<Card>
+									<CardActionArea>
+										{actor.profile_path ? (
+											<CardMedia
+												component='img'
+												height='350'
+												image={`${IMAGE_BASE_URL}/${actor.profile_path}`}
+												alt={actor.character}
+											/>
+										) : (
+											<CardMedia
+												component='img'
+												height='350'
+												image='/images/noimage.jpg'
+												alt={actor.character}
+											/>
+										)}
 
-									<CardContent>
-										<Typography gutterBottom variant='body2' component='p'>
-											{actor.name}
-										</Typography>
-										<Typography variant='p' color='text.secondary'>
-											As {actor.character.split('(voice)')}
-										</Typography>
-									</CardContent>
-								</CardActionArea>
-							</Card>
+										<CardContent sx={{ minHeight: 100 }}>
+											<Typography gutterBottom variant='body2' component='p'>
+												{actor.name}
+											</Typography>
+											<Typography variant='p' color='text.secondary'>
+												As {actor.character}
+											</Typography>
+										</CardContent>
+									</CardActionArea>
+								</Card>
+							</Link>
 						</NextLink>
 					</Grid>
 				))}

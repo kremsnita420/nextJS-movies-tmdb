@@ -8,6 +8,9 @@ body {
    
 }
 
+a:hover {
+  text-decoration: none;
+ }
 
 a {
   color: inherit;
@@ -17,4 +20,5 @@ a {
 * {
   box-sizing: border-box;
   letter-spacing: 1px;
+  
 }

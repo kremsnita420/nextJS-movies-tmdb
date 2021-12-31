@@ -5,22 +5,23 @@ import {
 	Card,
 	CardContent,
 	CardMedia,
-	Button,
 	CardActionArea,
-	CardActions,
+	Link,
 } from '@mui/material'
 import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import NextLink from 'next/link'
+import Image from 'next/image'
 
 import Layout from '../components/Layout'
 
 export default function MoviesPage(movies) {
 	const BASE_URL = 'https://image.tmdb.org/t/p/original/'
+	const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500'
 	console.log(movies)
 
 	return (
-		<Layout>
+		<Layout title='Top Rated Movies'>
 			<Container maxWidth='xl'>
 				<Box sx={{ my: 4 }}>
 					<Typography
@@ -30,40 +31,47 @@ export default function MoviesPage(movies) {
 						gutterBottom>
 						Top Rated Movies
 					</Typography>
+					<Box sx={{ marginBottom: '5rem' }}>
+						{movies.movies[0].poster_path ? (
+							<Image
+								width={800}
+								height={400}
+								objectFit='contain'
+								layout='responsive'
+								src={`${IMAGE_BASE_URL}/${movies.movies[0].poster_path}`}
+							/>
+						) : (
+							<Image
+								width={800}
+								height={450}
+								layout='responsive'
+								src='/images/noimage.jpg'
+							/>
+						)}
+					</Box>
 
 					<Grid container spacing={2}>
 						{movies.movies.map((movie) => (
-							<Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={movie.id}>
+							<Grid item xs={6} sm={4} md={3} lg={2} xl={1} key={movie.id}>
 								<NextLink href={`/movie/${movie.id}`} passHref>
-									<a className='link'>
+									<Link>
 										<Card fullwidth='true'>
 											<CardActionArea>
 												<CardMedia
+													sx={{ objectFit: 'fill' }}
 													component='img'
-													height='350'
-													image={`${BASE_URL}/${movie.backdrop_path}`}
-													alt='movie poster'
+													height='250'
+													image={`${BASE_URL}/${movie.poster_path}`}
+													alt={movie.title}
 												/>
-												<CardContent sx={{ height: '150px' }}>
-													<Typography gutterBottom variant='h5' component='div'>
+												<CardContent sx={{ minHeight: 150 }}>
+													<Typography gutterBottom variant='h6' component='h6'>
 														{movie.title}
-													</Typography>
-													<Typography variant='body2' color='text.secondary'>
-														{movie.overview.slice(0, 50)}...
 													</Typography>
 												</CardContent>
 											</CardActionArea>
-											<CardActions>
-												<Button
-													fullWidth={true}
-													size='small'
-													variant='contained'
-													color='primary'>
-													Explore
-												</Button>
-											</CardActions>
 										</Card>
-									</a>
+									</Link>
 								</NextLink>
 							</Grid>
 						))}

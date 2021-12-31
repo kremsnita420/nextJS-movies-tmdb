@@ -25,18 +25,16 @@ export default function MoviePage(movie) {
 			<Typography
 				variant='h1'
 				component='h1'
-				sx={{ textAlign: 'center', m: '2rem' }}>
+				sx={{ textAlign: 'center', margin: '2rem' }}>
 				{movieData.title}
 			</Typography>
-			{movieData.backdrop_path || movieData.poster_path ? (
+			{movieData.poster_path ? (
 				<Image
 					width={800}
-					height={450}
+					height={500}
 					priority
 					layout='responsive'
-					src={`${BASE_URL}/${
-						movieData.backdrop_path || movieData.poster_path
-					}`}
+					src={`${BASE_URL}/${movieData.poster_path}`}
 				/>
 			) : (
 				<Image
@@ -56,38 +54,44 @@ export default function MoviePage(movie) {
 				Cast Crew
 			</Typography>
 
-			<Grid container spacing={2}>
+			<Grid container spacing={2} sx={{ paddingBottom: '5rem' }}>
 				{castList.map((actor) => (
-					<Grid item xs={6} sm={4} lg={2} key={actor.id}>
-						<NextLink href={`/actor/${actor.id}`}>
-							<Card>
-								<CardActionArea>
-									{actor.profile_path ? (
-										<CardMedia
-											component='img'
-											height='300'
-											image={`${IMAGE_BASE_URL}/${actor.profile_path}`}
-											alt={actor.character}
-										/>
-									) : (
-										<CardMedia
-											component='img'
-											height='300'
-											image='/images/noimage.jpg'
-											alt={actor.character}
-										/>
-									)}
+					<Grid item xs={6} sm={4} md={3} lg={2} key={actor.id}>
+						<NextLink href={`/actor/${actor.id}`} passHref>
+							<Link>
+								<Card>
+									<CardActionArea>
+										{actor.profile_path || actor.backdrop_path ? (
+											<CardMedia
+												sx={{ objectFit: 'cover' }}
+												component='img'
+												height='250'
+												image={`${IMAGE_BASE_URL}/${
+													actor.profile_path || actor.backdrop_path
+												}`}
+												alt={actor.character}
+											/>
+										) : (
+											<CardMedia
+												sx={{ objectFit: 'cover' }}
+												component='img'
+												height='250'
+												image='/images/noimage.jpg'
+												alt={actor.character}
+											/>
+										)}
 
-									<CardContent>
-										<Typography gutterBottom variant='body2' component='p'>
-											{actor.name}
-										</Typography>
-										<Typography variant='p' color='text.secondary'>
-											As {actor.character.split('(voice)')}
-										</Typography>
-									</CardContent>
-								</CardActionArea>
-							</Card>
+										<CardContent sx={{ minHeight: 100 }}>
+											<Typography gutterBottom variant='body2' component='p'>
+												{actor.name}
+											</Typography>
+											<Typography variant='p' color='text.secondary'>
+												As {actor.character}
+											</Typography>
+										</CardContent>
+									</CardActionArea>
+								</Card>
+							</Link>
 						</NextLink>
 					</Grid>
 				))}
