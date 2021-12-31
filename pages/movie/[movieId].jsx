@@ -36,7 +36,6 @@ export default function MoviePage(movie) {
 						width={800}
 						height={400}
 						objectFit='contain'
-						priority
 						layout='responsive'
 						src={`${BASE_URL}/${movieData.poster_path}`}
 					/>
@@ -45,7 +44,6 @@ export default function MoviePage(movie) {
 						width={800}
 						height={400}
 						objectFit='contain'
-						priority
 						layout='responsive'
 						src='/images/noimage.jpg'
 					/>
