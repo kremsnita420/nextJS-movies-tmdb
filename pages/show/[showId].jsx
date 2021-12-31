@@ -8,6 +8,7 @@ import {
 	Grid,
 	Typography,
 	Link,
+	Box,
 } from '@mui/material'
 import Layout from '../../components/Layout'
 
@@ -28,23 +29,27 @@ export default function ShowPage(show) {
 				sx={{ textAlign: 'center', m: '2rem' }}>
 				{showData.name || showData.title}
 			</Typography>
-			{showData.poster_path || showData.backdrop_path ? (
-				<Image
-					width={800}
-					height={450}
-					priority
-					layout='responsive'
-					src={`${BASE_URL}/${showData.poster_path || showData.backdrop_path}`}
-				/>
-			) : (
-				<Image
-					width={800}
-					height={450}
-					priority
-					layout='responsive'
-					src='/images/noimage.jpg'
-				/>
-			)}
+			<Box sx={{ marginBottom: '5rem' }}>
+				{showData.poster_path || showData.backdrop_path ? (
+					<Image
+						width={800}
+						height={400}
+						objectFit='contain'
+						layout='responsive'
+						src={`${BASE_URL}/${
+							showData.poster_path || showData.backdrop_path
+						}`}
+					/>
+				) : (
+					<Image
+						width={800}
+						height={400}
+						objectFit='contain'
+						layout='responsive'
+						src='/images/noimage.jpg'
+					/>
+				)}
+			</Box>
 
 			<Typography
 				sx={{ textAlign: 'center', m: '2rem' }}

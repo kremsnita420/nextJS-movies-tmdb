@@ -6,6 +6,7 @@ import {
 	CardContent,
 	Typography,
 	Link,
+	Box,
 } from '@mui/material'
 import Image from 'next/image'
 import Layout from '../../components/Layout'
@@ -28,23 +29,28 @@ export default function MoviePage(movie) {
 				sx={{ textAlign: 'center', margin: '2rem' }}>
 				{movieData.title}
 			</Typography>
-			{movieData.poster_path ? (
-				<Image
-					width={800}
-					height={500}
-					priority
-					layout='responsive'
-					src={`${BASE_URL}/${movieData.poster_path}`}
-				/>
-			) : (
-				<Image
-					width={800}
-					height={450}
-					priority
-					layout='responsive'
-					src='/images/noimage.jpg'
-				/>
-			)}
+			<Box sx={{ marginBottom: '5rem' }}>
+				{' '}
+				{movieData.poster_path ? (
+					<Image
+						width={800}
+						height={400}
+						objectFit='contain'
+						priority
+						layout='responsive'
+						src={`${BASE_URL}/${movieData.poster_path}`}
+					/>
+				) : (
+					<Image
+						width={800}
+						height={400}
+						objectFit='contain'
+						priority
+						layout='responsive'
+						src='/images/noimage.jpg'
+					/>
+				)}
+			</Box>
 
 			<Typography
 				sx={{ textAlign: 'center', m: '2rem' }}

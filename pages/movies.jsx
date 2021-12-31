@@ -43,8 +43,8 @@ export default function MoviesPage(movies) {
 						) : (
 							<Image
 								width={800}
-								height={450}
-								layout='responsive'
+								height={400}
+								objectFit='contain'
 								src='/images/noimage.jpg'
 							/>
 						)}
